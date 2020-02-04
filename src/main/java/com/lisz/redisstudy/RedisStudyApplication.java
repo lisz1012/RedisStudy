@@ -17,6 +17,9 @@ public class RedisStudyApplication {
 		redis.testRedis3();
 		redis.testRedis4();
 		redis.testRedis5();
+		
+		TestRedis2 redis2 = ctx.getBean(TestRedis2.class);
+		redis2.testRedis6();
 	}
 
 }

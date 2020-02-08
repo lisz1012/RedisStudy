@@ -18,7 +18,7 @@ public class TestRedis2 {
 	@Qualifier("getStringRedisTemplate") //@Quolifier里面写某个被@Configuration注解的类下面的某个被@Bean注解的方法名。@Qualifier用于强制按名字注入的情况
 	private StringRedisTemplate stringRedisTemplate;
 	
-	@Autowired
+	@Autowired //下面的ObjectMapper类里面果然有一个无参的构造方法
 	private ObjectMapper objectMapper;
 	
 	public void testRedis6() {

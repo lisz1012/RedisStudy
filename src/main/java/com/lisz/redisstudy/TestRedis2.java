@@ -4,6 +4,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.connection.Message;
+import org.springframework.data.redis.connection.MessageListener;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.hash.HashMapper;
 import org.springframework.data.redis.hash.Jackson2HashMapper;
@@ -30,4 +33,26 @@ public class TestRedis2 {
 		System.out.println(person.getName() + ":" + person.getAge());
 	}
 
+	public void testPubSubSend() {
+		stringRedisTemplate.convertAndSend("topic1", "Hello");//redis-cli去订阅，会发现发过来的消息
+	}
+	
+	public void testPubSubReceive() {
+		RedisConnection connection = stringRedisTemplate.getConnectionFactory().getConnection();
+		connection.subscribe(new MessageListener() {
+			@Override
+			public void onMessage(Message message, byte[] pattern) {
+				System.out.println(new String(message.getBody()));
+			}
+		}, "topic1".getBytes());
+		
+		while (true) {
+			testPubSubSend();
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

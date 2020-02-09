@@ -20,6 +20,8 @@ public class RedisStudyApplication {
 		
 		TestRedis2 redis2 = ctx.getBean(TestRedis2.class);
 		redis2.testRedis6();
+		redis2.testPubSubSend();
+		redis2.testPubSubReceive();
 	}
 
 }

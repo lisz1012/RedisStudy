@@ -9,6 +9,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
 @Configuration
 public class MyTemplate {
+	//当应用里面需要StringRedisTemplate的时候统一预加工一下
 	@Bean
 	public StringRedisTemplate getStringRedisTemplate (RedisConnectionFactory fc) {
 		StringRedisTemplate template = new StringRedisTemplate(fc);
